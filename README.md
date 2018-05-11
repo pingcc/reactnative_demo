@@ -11,3 +11,6 @@ react_demo
    运行项目
 
 
+   运行环境：android模拟器（真机）[运行环境]+webStorm（编写工具）+node.js(虚拟机服务器)
+
+
