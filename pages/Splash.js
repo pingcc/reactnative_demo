@@ -21,7 +21,7 @@ export default class Splash extends Component<Props> {
     }
 
     componentDidMount(){
-        debugger
+
         const { dispatch }=this.props.navigation
 
       const resetGuide = NavigationActions.reset({

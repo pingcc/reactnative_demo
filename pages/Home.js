@@ -1,5 +1,16 @@
 import React, {Component} from 'react';
-import {Text, View, TextInput, Image, ScrollView, TouchableOpacity, Dimensions, StyleSheet, DeviceEventEmitter} from 'react-native';
+import {
+    Text,
+    View,
+    TextInput,
+    Image,
+    ScrollView,
+    TouchableOpacity,
+    Dimensions,
+    StyleSheet,
+    DeviceEventEmitter
+} from 'react-native';
+
 var toolbarActions = [
     {title: 'Create', icon: require('../image/ic_user_ludan.png'), show: 'always'},
     {title: 'Filter'},
@@ -7,7 +18,7 @@ var toolbarActions = [
 ];
 export default class Home extends Component {
     constructor(props) {
-        console.log("构造方法--->", "constructor")
+        GlobalUtil.log("构造方法--->", "constructor")
         super(props);
         this.state = {text: ''};
     }
@@ -41,8 +52,7 @@ export default class Home extends Component {
     });
 
     render() {//创建视图，改变视图的方法
-        console.log("生命周期方法--->", "render()")
-
+        GlobalUtil.log("生命周期方法--->", "render()")
         return (
             <ScrollView>
                 <View style={styles._column_container}>
@@ -51,26 +61,28 @@ export default class Home extends Component {
                     <Text>Hello world!</Text>
                     <Text>Hello world!</Text>
 
-                    <View style={styles._row_container}>
+                    <View style={[styles._row_container, {height: (GlobalUtil.getDeviceWidth() + 80) / 3}]}>
 
                         <Image source={{
-                            uri: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1525343965868&di=1acd0083ef9cee02eae84a99a7ad6cbb&imgtype=0&src=http%3A%2F%2Fimg.sc115.com%2Fhb%2Fyl2%2F21%2F881711314893792.jpg"
+                            uri: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1526298855221&di=d9a2c8b05f09fb0469ce60a4511db126&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201607%2F25%2F20160725213118_3AHJT.jpeg"
                         }}
                                style={styles._img_style}
-
                         />
 
+                        <Image source={{
+
+                            uri: "https://wx4.sinaimg.cn/mw690/50868c3fly1fr54m4g8orj22kw3vckjq.jpg"
+
+                        }}
+                               style={styles._img_style}
+                        />
                         <Image source={{
                             uri: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1525344619095&di=410938097795b3c9711d4824b53f4320&imgtype=0&src=http%3A%2F%2Ftpic.home.news.cn%2FxhCloudNewsPic%2Fxhpic1501%2FM0B%2F39%2FED%2FwKhTlFimQGSETH5AAAAAABr8DXY996.jpg"
                         }}
                                style={styles._img_style}
                         />
-                        <Image source={{
-                            uri: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1525344619095&di=410938097795b3c9711d4824b53f4320&imgtype=0&src=http%3A%2F%2Ftpic.home.news.cn%2FxhCloudNewsPic%2Fxhpic1501%2FM0B%2F39%2FED%2FwKhTlFimQGSETH5AAAAAABr8DXY996.jpg"
-                        }}
-                               style={styles._img_style}
 
-                        />
+
                     </View>
                     <Text>Hello world!</Text>
                     <Text>Hello world!</Text>
@@ -95,7 +107,7 @@ export default class Home extends Component {
                         />
 
                         <Text style={{padding: 10, fontSize: 42}}>
-                           {this.state.text.split(' ').map((word) => word && '🍕').join(' ')}
+                            {this.state.text.split(' ').map((word) => word && '🍕').join(' ')}
                             {/*{this.state.text}🍕*/}
                         </Text>
                     </View>
@@ -112,35 +124,40 @@ export default class Home extends Component {
     //在render前，getInitalState之后调用
     // render：组件渲染函数，会返回一个Virtual DOM，只允许返回一个最外层容器组件
     componentWillMount() {
-        console.log("生命周期方法--->", "componentWillMount")
+        GlobalUtil.log("生命周期方法--->" + GlobalUtil.getDeviceWidth(), "componentWillMount")
     }
+
     // 在render渲染之后，React会根据Virtual DOM来生成真实DOM，生成完毕后会调用该函数
     componentDidMount() {//on
-        console.log("生命周期方法--->", "componentDidMount")
+        GlobalUtil.log("生命周期方法--->", "componentDidMount")
         // 处理数据源
         // this.handlerDataSource();
         this.props.navigation.setParams({navigatePress: this._onPressButton})
 
-        this.subscription = DeviceEventEmitter.addListener('noticeName',(userName) =>{
-           console.log(userName) //收到消息页面通知
+        this.subscription = DeviceEventEmitter.addListener('noticeName', (userName) => {
+            GlobalUtil.log(userName) //收到消息页面通知
         })
     }
-    componentWillReceiveProps(){//属性props改变回调的方法
-        console.log("生命周期方法--->", "componentWillReceiveProps")
+
+    componentWillReceiveProps() {//属性props改变回调的方法
+        GlobalUtil.log("生命周期方法--->", "componentWillReceiveProps")
     }
-    componentWillUpdate(){//绑定状态发生改变执行componentWillUpdate()-->render()--->componentDidUpdate()
-        console.log("生命周期方法--->", "componentWillUpdate")
+
+    componentWillUpdate() {//绑定状态发生改变执行componentWillUpdate()-->render()--->componentDidUpdate()
+        GlobalUtil.log("生命周期方法--->", "componentWillUpdate")
 
     }
-    componentDidUpdate(){
-        console.log("生命周期方法--->", "componentDidUpdate")
+
+    componentDidUpdate() {
+        GlobalUtil.log("生命周期方法--->", "componentDidUpdate")
 
     }
 
     componentWillUnmount() {//销毁页面执行的方法
-        console.log("生命周期方法--->", "componentWillUnmount")
+        GlobalUtil.log("生命周期方法--->", "componentWillUnmount")
         this.subscription.remove();//移除消息通知
     }
+
     _onPressButton = () => {
         this.props.navigation.navigate("go3", {
             string: "15411", callback: () => {
@@ -156,7 +173,6 @@ const styles = StyleSheet.create({
 
     },
     _row_container: {
-        flex: 1,
         // paddingLeft:10,
         paddingRight: 10,
         flexDirection: "row",
@@ -166,8 +182,8 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         flex: 1,
         // width: Dimensions.get('window').width / 3,
-        // // 设置高度
-        height: (Dimensions.get('window').width - 40) / 3,
+        // 设置高度
+        //   height: (Dimensions.get('window').width- 40) / 3,
         /*
          cover 保持图片宽高比，直到宽度和高度都大于等于容器视图的尺寸（参考下图效果）
               contain 在保持图片宽高比的前提下缩放图片，直到宽度和高度都小于等于容器视图的尺寸

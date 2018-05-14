@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { SectionList, StyleSheet, Text, View ,DeviceEventEmitter } from 'react-native';
 import axios from 'axios';
 import * as FastClickUtils from "./FastClickUtils";
-import LogUtil from "./LogUtil";
 import { connect } from 'react-redux';
 
 class SectionListBasics extends Component {
@@ -32,7 +31,7 @@ class SectionListBasics extends Component {
         /*  DeviceEventEmitter.emit('noticeName', "通知事件");//发送消息通知其它页面方法
            this.props.navigation.navigate("go4", {
                string: "15411", callback: () => {
-                   console.log("回到界面的回调","<-----");
+                    GlobalUtil.log("回到界面的回调","<-----");
                }
            })*/
       /*  var instance = axios.create({
@@ -42,7 +41,7 @@ class SectionListBasics extends Component {
             headers: {'Content-Type': 'application/json;charset=utf-8',"Authorization":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJJRCI6IjY5MjI5ZmQ3LWRhYzgtNDk0OS1iNjU1LTNjYTdiZGU3NTQxMSIsIlRlbmFudElkIjoxLCJVc2VySWQiOjIzLCJNZW1iZXJJZCI6MjEsIkF2YXRhciI6Imh0dHA6Ly9pbWcubWFtbWFzYXkuY29tL2ltYWdlLzIwMTgwMTA1LzYzNjUwNzU5NjYwMjAxOTI5MjgxOTMxNzIuanBnIiwiUmVhbE5hbWUiOiLlv4bwn5mEIiwiTmlja05hbWUiOiLpnLLlronpgILlrqLmnI3kuK3lv4MiLCJQaG9uZSI6IjE3NjIwMTg1ODU5IiwiU2Vzc2lvbktleSI6bnVsbH0.KigSAgr8Q2oTYNx20gCugicSbkDXnYipaYwKiQRQVrg"}
         });
         instance.get("/api/daogoubao/user/getDaogou").then((rp)=>{
-            LogUtil.log(rp)
+            GlobalUtil.log(rp)
         })*/
     }
 

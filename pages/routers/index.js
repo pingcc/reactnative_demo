@@ -5,6 +5,7 @@ import welcome from "../Home";
 import FlatList from "../FlatList";
 import {StackNavigator} from "react-navigation";
 import Main from "../MainBottomTab";
+import '../GlobalUtils'//全局文件需要在配置文件中导入
 
 const SimpleApp = StackNavigator({
     goHome: {screen: Splash},
