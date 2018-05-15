@@ -18,7 +18,7 @@ import {
 } from 'react-native';
 import {NavigationActions} from 'react-navigation';
 import * as UiUtils from "./UiUtil";
-
+import { connect } from 'react-redux';
 
 const instructions = Platform.select({
     ios: 'Press Cmd+R to reload,\n' +
@@ -30,7 +30,7 @@ const instructions = Platform.select({
 type Props = {};
 
 var currTime;
-export default class App extends Component<Props> {
+ class App extends Component<Props> {
     static navigationOptions = {
         title: '首页',//设置标题内容
         titleColor: "#ff0",
@@ -39,6 +39,38 @@ export default class App extends Component<Props> {
     }
 
 
+
+    componentDidMount() {
+        // 安卓 设备返回键监听
+        if (Platform.OS === 'android') {
+            BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid.bind(this));
+        }
+
+    }
+    // 组件销毁前移除事件监听
+    componentWillUnmount() {
+        if (Platform.OS === 'android') {
+            BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroid);
+        }
+    }
+    // 安卓返回按钮点击监听
+    onBackAndroid = () => {
+        const routers = this.props.routes;
+        if (routers.length > 1) {
+            this.props.navigation.dispatch(NavigationActions.back());
+            return true;
+        } else {
+            if (this.lastBackPressed && this.lastBackPressed + 2000 >= Date.now()) {
+                //最近2秒内按过back键，可以退出应用。
+                return false;
+            }
+            this.lastBackPressed = Date.now();
+            // if (this.refs.toast){
+            //     this.refs.toast.show('再按一次退出应用');
+            // }
+            return true;
+        }
+    };
 
     constructor(props) {
         super(props);
@@ -86,7 +118,7 @@ export default class App extends Component<Props> {
         //   debugger
 
         this.props.navigation.navigate("go2", {
-            string: "15411", callback: () => {
+            skey: "15411",juh: "awm", callback: () => {
             }
         })
 
@@ -123,3 +155,6 @@ const styles = StyleSheet.create({
         resizeMode: 'contain'
     }
 });
+export default connect(state => ({
+    routes: state.nav.routes
+}), dispatch => ({}))(App);

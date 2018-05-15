@@ -7,7 +7,6 @@ export default class ListViewBasics  extends Component {
 
     constructor(props) {
         super(props);
-         param=this.props.navigation.state.params
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
         this.state = {
@@ -18,7 +17,7 @@ export default class ListViewBasics  extends Component {
     }
 
     render() {
-        console.log(param.string);
+        GlobalUtil.log(this.props.navigation.state.params.string)
         return (
             <View style={{paddingTop: 22}}>
                 <ListView

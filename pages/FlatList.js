@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { SectionList, StyleSheet, Text, View ,DeviceEventEmitter } from 'react-native';
 import axios from 'axios';
-import * as FastClickUtils from "./FastClickUtils";
 import { connect } from 'react-redux';
 
 class SectionListBasics extends Component {
     render() {
+       /* let param=this.props.navigation.state.params
+        GlobalUtil.log(param.string)*/
         var SectionListBasics_this=this;
         return (
             <View style={styles.container}>
@@ -28,12 +29,13 @@ class SectionListBasics extends Component {
     //     var routes  = this.props.routes;
         this.props.navigation.goBack(routes[1].key); //跳转到第一个配置的routes
          // this.props.navigation.goBack();
-        /*  DeviceEventEmitter.emit('noticeName', "通知事件");//发送消息通知其它页面方法
-           this.props.navigation.navigate("go4", {
-               string: "15411", callback: () => {
-                    GlobalUtil.log("回到界面的回调","<-----");
-               }
-           })*/
+        DeviceEventEmitter.emit('noticeName', "通知事件");//发送消息通知其它页面方法
+        DeviceEventEmitter.emit('noticeName1', "通知事件1");//发送消息通知其它页面方法
+        /*   this.props.navigation.navigate("go4", {
+              string: "15411", callback: () => {
+                   GlobalUtil.log("回到界面的回调","<-----");
+              }
+          })*/
       /*  var instance = axios.create({
             baseURL: 'http://ws.sandbox.mammasay.com',
             timeout: 1000,

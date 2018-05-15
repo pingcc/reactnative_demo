@@ -2,14 +2,14 @@ import React, {Component} from 'react';
 import {
     Text,
     View,
+    TouchableOpacity,
     TextInput,
     Image,
     ScrollView,
-    TouchableOpacity,
-    Dimensions,
     StyleSheet,
     DeviceEventEmitter
 } from 'react-native';
+import CommonStyle from "./common/CommonStyle";
 
 var toolbarActions = [
     {title: 'Create', icon: require('../image/ic_user_ludan.png'), show: 'always'},
@@ -20,7 +20,10 @@ export default class Home extends Component {
     constructor(props) {
         GlobalUtil.log("构造方法--->", "constructor")
         super(props);
-        this.state = {text: ''};
+        this.state = {
+            text: '',
+            buttonEnable: false
+        };
     }
 
     static defaultProps = {};
@@ -53,10 +56,12 @@ export default class Home extends Component {
 
     render() {//创建视图，改变视图的方法
         GlobalUtil.log("生命周期方法--->", "render()")
+        // GlobalUtil.log(this.props.navigation.state.params.skey)
+        // GlobalUtil.log(this.props.navigation.state.params.juh)
         return (
             <ScrollView>
                 <View style={styles._column_container}>
-                    <Text>Hello world !</Text>
+                    <Text style={{width:50}}>Hello world !</Text>
                     <Text>Hello world! </Text>
                     <Text>Hello world!</Text>
                     <Text>Hello world!</Text>
@@ -103,7 +108,10 @@ export default class Home extends Component {
                         <TextInput
                             style={{height: 40}}
                             placeholder="Type here to translate!"
-                            onChangeText={(text) => this.setState({text})}
+                            onChangeText={(text) => this.setState({
+                                text: text,
+                                buttonEnable: (text > 0) ? true : false
+                            })}
                         />
 
                         <Text style={{padding: 10, fontSize: 42}}>
@@ -111,6 +119,15 @@ export default class Home extends Component {
                             {/*{this.state.text}🍕*/}
                         </Text>
                     </View>
+                    <TouchableOpacity
+                        style={[CommonStyle.buttonStyle_top_bottom, {backgroundColor: this.state.buttonEnable ? '#2f88ff' : '#accfff'}]}
+                        activeOpacity={0.8}
+                        disabled={!this.state.buttonEnable}>
+                        <Text style={CommonStyle.buttonChildStyle}>
+                                click me!
+                        </Text>
+                    </TouchableOpacity>
+
 
                 </View>
             </ScrollView>
@@ -119,7 +136,7 @@ export default class Home extends Component {
     }
 
 // 第一次执行方法 :constructor()--->
-// componentWillMount()--->render()---->componentDidMount()----->componentWillReceiveProps()
+// componentWillMount()--->render()---->componentDidMount()-----    ponentWillReceiveProps()
 //     componentWillUpdate()---->render()---->componentDidUpdate()
     //在render前，getInitalState之后调用
     // render：组件渲染函数，会返回一个Virtual DOM，只允许返回一个最外层容器组件
@@ -135,6 +152,9 @@ export default class Home extends Component {
         this.props.navigation.setParams({navigatePress: this._onPressButton})
 
         this.subscription = DeviceEventEmitter.addListener('noticeName', (userName) => {
+            GlobalUtil.log(userName) //收到消息页面通知
+        })
+        this.subscription1 =DeviceEventEmitter.addListener('noticeName1', (userName) => {
             GlobalUtil.log(userName) //收到消息页面通知
         })
     }
@@ -155,12 +175,15 @@ export default class Home extends Component {
 
     componentWillUnmount() {//销毁页面执行的方法
         GlobalUtil.log("生命周期方法--->", "componentWillUnmount")
-        this.subscription.remove();//移除消息通知
+      this.subscription.remove();//移除消息通知
+        this.subscription1.remove();//移除消息通知
+     /*  DeviceEventEmitter.removeListener("noticeName", this.subscription )
+        DeviceEventEmitter.removeListener("noticeName1", this.subscription1 )*/
     }
 
     _onPressButton = () => {
         this.props.navigation.navigate("go3", {
-            string: "15411", callback: () => {
+            string: this.state.text, callback: () => {
             }
         })
     }
