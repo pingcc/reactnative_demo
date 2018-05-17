@@ -12,6 +12,7 @@ class EncryptUti {
 
     //mde 加密
     static encryptMd5PWDStr(param) {
+        //Promise 返回一个成功之后回传的callback 后续可以用then链式编程
 
         return new Promise(function (resolve, reject) {
 
@@ -22,9 +23,9 @@ class EncryptUti {
             let encryptResultStr = md2.digest().toHex();
 
             if (encryptResultStr) {
-                resolve(encryptResultStr);
+                resolve(encryptResultStr); //成功返回的字段
             } else {
-                reject('出错了');
+                reject('出错了');//error返回的字段
             }
         });
 

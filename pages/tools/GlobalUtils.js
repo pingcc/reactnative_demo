@@ -1,4 +1,5 @@
 import {Dimensions} from "react-native";
+import LLAxios from '../network/LLAxios'
 
 const GlobalUtils = {
     log(...params) {
@@ -15,3 +16,4 @@ const GlobalUtils = {
 
 global.GlobalUtil = GlobalUtils
 
+global.LLAxio = LLAxios //获取全局网络工具类

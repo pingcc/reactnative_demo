@@ -22,9 +22,11 @@ export default class Splash extends Component<Props> {
 
     componentDidMount(){
 
-        const { dispatch }=this.props.navigation
+        const  {dispatch} =this.props.navigation;
 
-      const resetGuide = NavigationActions.reset({
+        // const  dispatch =this.props.navigation.dispatch; //一样的写法
+
+        const resetGuide = NavigationActions.reset({
             index: 0,
             actions: [ NavigationActions.navigate({ routeName: 'Main'}) ] })
 
@@ -32,7 +34,12 @@ export default class Splash extends Component<Props> {
             dispatch(resetGuide)
         }, 2000);
     }
+    componentWillUnmount(){
+        //清除计时器，避免内存泄露
+        this.timer && clearTimeout(this.timer);
+    }
 }
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,

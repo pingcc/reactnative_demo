@@ -18,8 +18,9 @@ import {
 } from 'react-native';
 import {NavigationActions} from 'react-navigation';
 import * as UiUtils from "../tools/UiUtil";
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import Toast, {DURATION} from 'react-native-easy-toast'
+
 const instructions = Platform.select({
     ios: 'Press Cmd+R to reload,\n' +
     'Cmd+D or shake for dev menu',
@@ -30,14 +31,14 @@ const instructions = Platform.select({
 type Props = {};
 
 var currTime;
- class App extends Component<Props> {
+
+class App extends Component<Props> {
     static navigationOptions = {
         title: '首页',//设置标题内容
         titleColor: "#ff0",
-        titleTextColor:"#ff0",
-        backgroundColor:"#000",
+        titleTextColor: "#ff0",
+        backgroundColor: "#000",
     }
-
 
 
     componentDidMount() {
@@ -47,12 +48,14 @@ var currTime;
         }
 
     }
+
     // 组件销毁前移除事件监听
     componentWillUnmount() {
         if (Platform.OS === 'android') {
             BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroid);
         }
     }
+
     // 安卓返回按钮点击监听
     onBackAndroid = () => {
         const routers = this.props.routes;
@@ -66,24 +69,34 @@ var currTime;
             }
             this.lastBackPressed = Date.now();
 
-             if (this.refs.toast){
-                 this.refs.toast.show('再按一次退出应用');
-           }
+            if (this.refs.toast) {
+                this.refs.toast.show('再按一次退出应用');
+            }
             return true;
         }
     };
 
     constructor(props) {
         super(props);
-        var i = 1;
-        this.state = {showText: i, text: true};
+        this.state = {showText: 0, text: true};
 
+
+    }
+
+    componentWillMount() {
         // 每1000毫秒对showText状态做一次取反操作
-        setInterval(() => {
-            this.setState(() => {
+        var i = 0;
+
+        this.timer = setInterval(() => {
+            this.setState(()=>{
                 return {showText: i++};
             });
         }, 1000);
+    }
+
+
+    componentWillUnmount() {
+        this.timer && clearInterval(this.timer);
     }
 
     render() {
@@ -111,7 +124,7 @@ var currTime;
                 </Text>
                 <Toast //自定义toast
                     ref="toast"
-                    style={ {backgroundColor:'red'}}
+                    style={{backgroundColor: 'red'}}
                     position='top'
                 />
             </View>
@@ -124,7 +137,7 @@ var currTime;
         //   debugger
 
         this.props.navigation.navigate("go2", {
-            skey: "15411",juh: "awm", callback: () => {
+            skey: "15411", juh: "awm", callback: () => {
             }
         })
 
