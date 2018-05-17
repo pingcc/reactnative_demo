@@ -5,7 +5,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import addNavigationHelpers  from 'react-navigation/src/addNavigationHelpers';
-import Routers from './routers';
+import Routers from './index';
 import {
     createReduxBoundAddListener,
     createReactNavigationReduxMiddleware,

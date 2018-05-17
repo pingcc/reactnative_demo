@@ -17,7 +17,7 @@ import {
     BackHandler,
 } from 'react-native';
 import {NavigationActions} from 'react-navigation';
-import * as UiUtils from "./UiUtil";
+import * as UiUtils from "../tools/UiUtil";
 import { connect } from 'react-redux';
 import Toast, {DURATION} from 'react-native-easy-toast'
 const instructions = Platform.select({

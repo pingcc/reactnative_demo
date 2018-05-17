@@ -1,8 +1,8 @@
 import { AppRegistry } from 'react-native';
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import createStore from './pages/createStore';
-import AppWithNavigationState from './pages/AppWithNavigationState';
+import createStore from './pages/routers/createStore';
+import AppWithNavigationState from './pages/routers/AppWithNavigationState';
 
 const store = createStore();
 class RnNavRedux extends Component {

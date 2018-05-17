@@ -9,12 +9,12 @@ import {
     StyleSheet,
     DeviceEventEmitter
 } from 'react-native';
-import CommonStyle from "./common/CommonStyle";
+import CommonStyle from "../common/CommonStyle";
 
 var toolbarActions = [
-    {title: 'Create', icon: require('../image/ic_user_ludan.png'), show: 'always'},
+    {title: 'Create', icon: require('../../image/ic_user_ludan.png'), show: 'always'},
     {title: 'Filter'},
-    {title: 'Settings', icon: require('../image/ic_user_ludan_add.png'), show: 'always'},
+    {title: 'Settings', icon: require('../../image/ic_user_ludan_add.png'), show: 'always'},
 ];
 export default class Home extends Component {
     constructor(props) {
@@ -45,7 +45,7 @@ export default class Home extends Component {
         headerRight: (<View>
             <TouchableOpacity
                 onPress={() => navigation.state.params.navigatePress()}>
-                <Image source={require('../image/ic_user_ludan_add.png')}
+                <Image source={require('../../image/ic_user_ludan_add.png')}
                        style={{width: 20, height: 20, marginRight: 10}}/>
             </TouchableOpacity></View>),
         // headerLeft:null,
@@ -139,7 +139,7 @@ export default class Home extends Component {
     }
 
 // 第一次执行方法 :constructor()--->
-// componentWillMount()--->render()---->componentDidMount()-----    ponentWillReceiveProps()
+// componentWillMount()--->render()---->componentDidMount()-----    componentWillReceiveProps()
 //     componentWillUpdate()---->render()---->componentDidUpdate()
     //在render前，getInitalState之后调用
     // render：组件渲染函数，会返回一个Virtual DOM，只允许返回一个最外层容器组件

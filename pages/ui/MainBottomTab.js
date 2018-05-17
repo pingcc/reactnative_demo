@@ -15,8 +15,8 @@ export default TabNavigator({
         navigationOptions:{
             tabBarLabel:'App',
             tabBarIcon : ({tintColor , focused})=>(focused?
-                <Image source={require('./Image/tab_btn_home_hl.png')}style={styles.icon}/>:
-                <Image source={require('./Image/tab_btn_home.png')}style={styles.icon}/>),
+                <Image source={require('../Image/tab_btn_home_hl.png')}style={styles.icon}/>:
+                <Image source={require('../Image/tab_btn_home.png')}style={styles.icon}/>),
         }
     },
     PageTwo : {
@@ -24,9 +24,9 @@ export default TabNavigator({
         navigationOptions:{
             tabBarLabel:'Home',
             tabBarIcon : ({tintColor ,focused}) =>(focused?
-                <Image source={require('./Image/tab_btn_race_hl.png')}
+                <Image source={require('../Image/tab_btn_race_hl.png')}
                        style={styles.icon}/>:
-                <Image source={require('./Image/tab_btn_race.png')}
+                <Image source={require('../Image/tab_btn_race.png')}
                        style={styles.icon}/>)
         }
     },
@@ -35,9 +35,9 @@ export default TabNavigator({
         navigationOptions:{
             tabBarLabel:'FlatList',
             tabBarIcon : ({tintColor ,focused}) =>(focused?
-                <Image source={require('./Image/tab_btn_user_hl.png')}
+                <Image source={require('../Image/tab_btn_user_hl.png')}
                        style={styles.icon}/>:
-                <Image source={require('./Image/tab_btn_user.png')}
+                <Image source={require('../Image/tab_btn_user.png')}
                        style={styles.icon}/>)
         }
     }

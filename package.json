@@ -8,6 +8,8 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "crypto-js": "^3.1.9-1",
+    "node-forge": "^0.7.5",
     "react": "16.3.1",
     "react-native": "0.55.3",
     "react-native-easy-toast": "^1.1.0",

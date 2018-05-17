@@ -1,11 +1,11 @@
-import ListViewBasics from "../ListViewBasics";
-import App from "../App";
-import Splash from "../Splash";
-import welcome from "../Home";
-import FlatList from "../FlatList";
+import ListViewBasics from "../ui/ListViewBasics";
+import App from "../ui/App";
+import Splash from "../ui/Splash";
+import welcome from "../ui/Home";
+import FlatList from "../ui/FlatList";
 import {StackNavigator} from "react-navigation";
-import Main from "../MainBottomTab";
-import '../GlobalUtils'//全局文件需要在配置文件中导入
+import Main from "../ui/MainBottomTab";
+import '../tools/GlobalUtils'//全局文件需要在配置文件中导入
 
 const SimpleApp = StackNavigator({
     goHome: {screen: Splash},

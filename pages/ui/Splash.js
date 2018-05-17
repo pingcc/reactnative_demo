@@ -12,7 +12,7 @@ export default class Splash extends Component<Props> {
         return (
             <View style={styles.container}>
 
-                <Image source={require('../image/bg_splash.jpg')}
+                <Image source={require('../../image/bg_splash.jpg')}
                            style={styles._img_style}
                     />
 
