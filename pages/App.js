@@ -19,7 +19,7 @@ import {
 import {NavigationActions} from 'react-navigation';
 import * as UiUtils from "./UiUtil";
 import { connect } from 'react-redux';
-
+import Toast, {DURATION} from 'react-native-easy-toast'
 const instructions = Platform.select({
     ios: 'Press Cmd+R to reload,\n' +
     'Cmd+D or shake for dev menu',
@@ -65,9 +65,10 @@ var currTime;
                 return false;
             }
             this.lastBackPressed = Date.now();
-            // if (this.refs.toast){
-            //     this.refs.toast.show('再按一次退出应用');
-            // }
+
+             if (this.refs.toast){
+                 this.refs.toast.show('再按一次退出应用');
+           }
             return true;
         }
     };
@@ -108,6 +109,11 @@ var currTime;
                 <Text style={styles.instructions}>
                     {instructions}
                 </Text>
+                <Toast //自定义toast
+                    ref="toast"
+                    style={ {backgroundColor:'red'}}
+                    position='top'
+                />
             </View>
         );
     }

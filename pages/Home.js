@@ -110,7 +110,7 @@ export default class Home extends Component {
                             placeholder="Type here to translate!"
                             onChangeText={(text) => this.setState({
                                 text: text,
-                                buttonEnable: (text > 0) ? true : false
+                                buttonEnable: (text.length > 0) ? true : false
                             })}
                         />
 
@@ -122,6 +122,9 @@ export default class Home extends Component {
                     <TouchableOpacity
                         style={[CommonStyle.buttonStyle_top_bottom, {backgroundColor: this.state.buttonEnable ? '#2f88ff' : '#accfff'}]}
                         activeOpacity={0.8}
+                        onPress={()=>{
+                            alert("你输入了:"+this.state.text)
+                        }}
                         disabled={!this.state.buttonEnable}>
                         <Text style={CommonStyle.buttonChildStyle}>
                                 click me!
