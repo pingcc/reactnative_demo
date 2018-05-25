@@ -15,6 +15,7 @@ var instance = axios.create({
 
 //添加请求拦截器
 instance.interceptors.request.use(function (config) {
+    // config.headers.Authorization=''; 拦截器
     return config
 }, function (error) {
     // Do something with request error

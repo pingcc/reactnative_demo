@@ -7,6 +7,7 @@ import {TabNavigator,TabBarBottom} from 'react-navigation';
 import FlatList from "./FlatList";
 import App from "./App";
 import welcome from "./Home";
+import echart1 from "./echart1";
 
 export default TabNavigator({
 
@@ -31,9 +32,9 @@ export default TabNavigator({
         }
     },
     PageThree : {
-        screen : FlatList,
+        screen : echart1,
         navigationOptions:{
-            tabBarLabel:'FlatList',
+            tabBarLabel:'echart1',
             tabBarIcon : ({tintColor ,focused}) =>(focused?
                 <Image source={require('../Image/tab_btn_user_hl.png')}
                        style={styles.icon}/>:
@@ -42,7 +43,7 @@ export default TabNavigator({
         }
     }
 },{
-    animationEnabled: true, // 切换页面时不显示动画
+    animationEnabled: false, // 切换页面时不显示动画
     tabBarPosition: 'bottom', // 显示在底端，android 默认是显示在页面顶端的
     swipeEnabled: false, // 禁止左右滑动
     tabBarComponent:TabBarBottom,
