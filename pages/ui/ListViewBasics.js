@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {ListView, Text, View} from 'react-native';
+import BaseComponent from "./BaseComponent";
 
 var param;
-export default class ListViewBasics  extends Component {
+export default class ListViewBasics extends BaseComponent {
     // 初始化模拟数据
 
     constructor(props) {
@@ -16,8 +17,7 @@ export default class ListViewBasics  extends Component {
         };
     }
 
-    render() {
-        GlobalUtil.log(this.props.navigation.state.params.string)
+    renderStatusBar() {
         return (
             <View style={{paddingTop: 22}}>
                 <ListView
@@ -28,11 +28,11 @@ export default class ListViewBasics  extends Component {
         );
     }
 
-    componentWillUnmount() {//销毁页面执行的方法
-        if (param.callback)
-            param.callback();
-    }
 
+    componentWillUnmount() {//销毁页面执行的方法
+        super.componentWillUnmount();
+
+    }
 
 
 }

@@ -30,9 +30,10 @@ export default class Splash extends Component<Props> {
             index: 0,
             actions: [ NavigationActions.navigate({ routeName: 'Main'}) ] })
 
-        this.timer=setTimeout(() => {
+    /*    this.timer=setTimeout(() => {
             dispatch(resetGuide)
-        }, 2000);
+        }, 2000);*/
+        dispatch(resetGuide)
     }
     componentWillUnmount(){
         //清除计时器，避免内存泄露

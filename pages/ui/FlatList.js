@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { SectionList, StyleSheet, Text, View ,DeviceEventEmitter } from 'react-native';
 import axios from 'axios';
-import { connect } from 'react-redux';
+import BaseComponent from "./BaseComponent";
+import ListViewBasics from "./ListViewBasics";
 
-class SectionListBasics extends Component {
-    render() {
-       /* let param=this.props.navigation.state.params
-        GlobalUtil.log(param.string)*/
+class SectionListBasics extends BaseComponent {
+    renderComponent(){
         var SectionListBasics_this=this;
         return (
             <View style={styles.container}>
@@ -18,16 +17,16 @@ class SectionListBasics extends Component {
                     renderItem={({item}) => <Text style={styles.item } onPress={SectionListBasics_this._onClickText.bind(SectionListBasics_this)}>{item}</Text>}
                     renderSectionHeader={({section}) => <Text style={styles.sectionHeader}   onPress={()=>this._onClickText()}>{section.title}</Text>}
                 />
-            </View>
-        );
+            </View>);
     }
+
     _onClickText(){
    /*     if(FastClickUtils.isFastClick())
             return;*/
         // debugger
      const { routes } = this.props;
     //     var routes  = this.props.routes;
-        this.props.navigation.goBack(routes[1].key); //跳转到第一个配置的routes
+        this.props.navigation.push("ListViewBasics"); //跳转到第一个配置的routes
          // this.props.navigation.goBack();
         DeviceEventEmitter.emit('noticeName', "通知事件");//发送消息通知其它页面方法
         DeviceEventEmitter.emit('noticeName1', "通知事件1");//发送消息通知其它页面方法
@@ -75,6 +74,4 @@ const styles = StyleSheet.create({
 
 
 
-export default connect(state => ({
-    routes: state.nav.routes //定义routes
-}), dispatch => ({}))(SectionListBasics);
+export default SectionListBasics;

@@ -5,10 +5,11 @@ import {
 } from 'react-native';
 // 引入 ECharts 主模块
 import Echarts from 'native-echarts';
+import BaseComponent from "./BaseComponent";
 
-class echart1 extends Component {
+class echart1 extends BaseComponent {
 
-    render() {
+    renderComponent(){
         const option = {
             backgroundColor: '#2c343c',
 
@@ -180,6 +181,8 @@ class echart1 extends Component {
             </ScrollView>
         )
 
+    }
+    renderStatusBar(){
 
     }
 

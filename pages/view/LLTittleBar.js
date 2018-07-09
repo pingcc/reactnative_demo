@@ -24,7 +24,7 @@ class LLTittleBar extends Component {
 
             <TouchableOpacity
                 activeOpacity={0.8}
-                onPress={() => self.props.clickLeftImageCallBack()}>
+                onPress={() => self.props.clickLeftImageCallBack?self.props.clickLeftImageCallBack():undefined}>
                 <Image style={[CommonStyle._title_bar_image_left, {display: self.props.inVisibleLeftImage ? 'flex' : 'none'}]}
                        source={self.props.requireLeftImage}
                 />
@@ -38,7 +38,7 @@ class LLTittleBar extends Component {
 
             <TouchableOpacity
                 activeOpacity={0.8}
-                onPress={() => self.props.clickRightImageCallBack()}>
+                onPress={() =>  self.props.clickRightImageCallBack?self.props.clickRightImageCallBack():undefined}>
                 <Image style={[CommonStyle._title_bar_image_right, {display: self.props.inVisibleRightImage ? 'flex' : 'none'}]}
                        source={self.props.requireRightImage}/>
             </TouchableOpacity>

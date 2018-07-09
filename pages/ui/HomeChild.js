@@ -11,14 +11,17 @@ import {
     DeviceEventEmitter
 } from 'react-native';
 import CommonStyle from "../common/CommonStyle";
-import BaseComponent from "./BaseComponent";
-
+import BaseComponent,{CustomRightMenuView} from "./BaseComponent";
 var toolbarActions = [
     {title: 'Create', icon: require('../../image/ic_user_ludan.png'), show: 'always'},
     {title: 'Filter'},
     {title: 'Settings', icon: require('../../image/ic_user_ludan_add.png'), show: 'always'},
 ];
-export default class Home extends BaseComponent {
+CustomRightMenuView(<View style={{alignItems: 'center', width: 65, justifyContent: 'center'}}>
+    <Text style={{color: 'white', fontSize: 16}}>保存</Text>
+</View>)
+
+export default class HomeChild extends BaseComponent {
     constructor(props) {
         GlobalUtil.log("构造方法--->", "constructor")
         super(props);
@@ -28,13 +31,11 @@ export default class Home extends BaseComponent {
             buttonEnable: false
         };
     }
+    onClickRightMenu(){
+        alert("保存成功")
+    }
 
-    static navigationOptions = (params) => {
-
-    };
-    renderStatusBar() {}
-    renderComponent() {
-        let self = this;
+    renderComponent(){
         GlobalUtil.log("生命周期方法--->", "render()")
         // GlobalUtil.log(this.props.navigation.state.params.skey)
         // GlobalUtil.log(this.props.navigation.state.params.juh)
@@ -93,7 +94,6 @@ export default class Home extends BaseComponent {
                     <View style={{padding: 10}}>
                         <TextInput
                             style={{height: 40}}
-                            enablesReturnKeyAutomatically={true}
                             placeholder={"Type here to translate!"}
                             onChangeText={(text) => this.setState({
                                 text: text,
@@ -110,17 +110,10 @@ export default class Home extends BaseComponent {
                         style={[CommonStyle.buttonStyle_top_bottom, {backgroundColor: this.state.buttonEnable ? '#2f88ff' : '#accfff'}]}
                         activeOpacity={0.8}
                         onPress={() => {
-                            // alert("你输入了:" + this.state.text)
-                            this.props.navigation.navigate('HomeChild', {
-                                pageTitle: this.state.text, isShowRightMenu: true,
-                                customRightMenuView:
-                                    (<View style={{alignItems: 'center', width: 65, justifyContent: 'center'}}>
-                                        <Text style={{color: 'white', fontSize: 16}}>保存</Text>
-                                    </View>),
+                            alert("你输入了:" + this.state.text)
+                            this.setState(state => {
+                                return {click: "click me123!"};
                             })
-                            /* this.setState(state => {
-                                 return {click: "click me123!"};
-                             })*/
                         }}
                         disabled={!this.state.buttonEnable}>
                         <Text style={CommonStyle.buttonChildStyle}>
@@ -184,8 +177,14 @@ export default class Home extends BaseComponent {
 
                     </View>
                 </View>
-            </ScrollView>)
+            </ScrollView>
+
+        );
     }
+
+
+
+
 
     // 第一次执行方法 :constructor()--->
     // componentWillMount()--->render()---->componentDidMount()-----> 页面稳定，之后开始触发 componentWillReceiveProps()----->(走下面的方法更改属性什么的)
@@ -195,14 +194,12 @@ export default class Home extends BaseComponent {
     componentWillMount() {
         GlobalUtil.log("生命周期方法--->" + GlobalUtil.getDeviceWidth(), "componentWillMount")
     }
-
     // 在render渲染之后，React会根据Virtual DOM来生成真实DOM，生成完毕后会调用该函数
     componentDidMount() {//on
         super.componentDidMount()
         GlobalUtil.log("生命周期方法--->", "componentDidMount")
         // 处理数据源
         // this.handlerDataSource();
-        this.props.navigation.setParams({navigatePress: this._onPressButton})
 
         this.subscription = DeviceEventEmitter.addListener('noticeName', (userName) => {
             GlobalUtil.log(userName) //收到消息页面通知
@@ -227,7 +224,7 @@ export default class Home extends BaseComponent {
     }
 
     componentWillUnmount() {//销毁页面执行的方法
-        super.componentWillUnmount()
+        super.componentWillUnmount();
         GlobalUtil.log("生命周期方法--->", "componentWillUnmount")
         this.subscription.remove();//移除消息通知
         this.subscription1.remove();//移除消息通知
@@ -235,7 +232,11 @@ export default class Home extends BaseComponent {
            DeviceEventEmitter.removeListener("noticeName1", this.subscription1 )*/
     }
 
+
+
+
 }
+
 const styles = StyleSheet.create({
     _column_container: {
         flex: 1,

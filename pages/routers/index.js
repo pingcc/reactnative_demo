@@ -1,21 +1,36 @@
+import {AppRegistry, Platform} from 'react-native';
+
 import ListViewBasics from "../ui/ListViewBasics";
 import App from "../ui/App";
 import Splash from "../ui/Splash";
-import welcome from "../ui/Home";
+import Home from "../ui/Home";
+import HomeChild from "../ui/HomeChild";
 import FlatList from "../ui/FlatList";
-import {StackNavigator} from "react-navigation";
+import {createStackNavigator} from 'react-navigation';
+
 import Main from "../ui/MainBottomTab";
 import '../tools/GlobalUtils'//全局文件需要在配置文件中导入
 
-const SimpleApp = StackNavigator({
-    goHome: {screen: Splash},
-    Main: {screen: Main},
-    go1: {screen: App},
-    go2: {screen: welcome},
-    go3: {screen: FlatList},
-    go4: {screen: ListViewBasics},
-},{
-    initialRouteName:'goHome'
+let SimpleApp = createStackNavigator({
+    Splash,
+    Main,
+    App,
+    Home,
+    HomeChild,
+    FlatList,
+    ListViewBasics,
+}, {
+    initialRouteName: 'Main',
+    headerMode: 'screen',
+    StatusBar: {
+        barStyle: 'light-content',
+    },
+    navigationOptions: {
+        headerStyle: {
+            height: 0, marginTop: Platform.OS == 'ios' ? global.isIPhoneX ? -44 : -20 : 0, borderBottomWidth: 0,
+        },
+    }
 })
 
-export default SimpleApp
+
+AppRegistry.registerComponent('demo', () => SimpleApp);

@@ -4,7 +4,7 @@
  * @flow
  */
 
-import React, {Component} from 'react';
+import React from 'react';
 // import ToastExample from '../ToastExample';
 import {
     StatusBar,
@@ -17,10 +17,9 @@ import {
     Platform,
     BackHandler,
 } from 'react-native';
-import {NavigationActions} from 'react-navigation';
 import * as UiUtils from "../tools/UiUtil";
-import {connect} from 'react-redux';
 import Toast, {DURATION} from 'react-native-easy-toast'
+import BaseComponent from "./BaseComponent";
 
 const instructions = Platform.select({
     ios: 'Press Cmd+R to reload,\n' +
@@ -33,52 +32,27 @@ type Props = {};
 
 var currTime;
 
-class App extends Component<Props> {
-    static navigationOptions = {
-        title: '首页',//设置标题内容
-        headerTitleStyle: {
-            fontWeight: 'bold',
-            textAlign: "center",
-            flex: 1,
-        },
-        headerTintColor: '#ff0',
-        headerStyle:{
-            backgroundColor: 'gray',
-        }
-    }
+export default class App extends BaseComponent {
 
 
-    componentDidMount() {
-        // 安卓 设备返回键监听
-        if (Platform.OS === 'android') {
-            BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid.bind(this));
-        }
+    static navigationOptions = (params) => {
 
-    }
+    };
 
-    // 组件销毁前移除事件监听
-    componentWillUnmount() {
-        if (Platform.OS === 'android') {
-            BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroid);
-        }
-    }
+
 
     // 安卓返回按钮点击监听
     onBackAndroid = () => {
-        const routers = this.props.routes;
-        if (routers.length > 1) {
-            this.props.navigation.dispatch(NavigationActions.back());
-            return true;
-        } else {
-            if (this.lastBackPressed && this.lastBackPressed + 2000 >= Date.now()) {
-                //最近2秒内按过back键，可以退出应用。
-                return false;
-            }
-            this.lastBackPressed = Date.now();
 
-            if (this.refs.toast) {
-                this.refs.toast.show('再按一次退出应用');
-            }
+        if (this.lastBackPressed && this.lastBackPressed + 2000 >= Date.now()) {
+            //最近2秒内按过back键，可以退出应用。
+            return false;
+        }
+        this.lastBackPressed = Date.now();
+
+        if (this.refs.toast) {
+            this.refs.toast.show('再按一次退出应用');
+
             return true;
         }
     };
@@ -90,12 +64,13 @@ class App extends Component<Props> {
 
     }
 
-    componentWillMount() {
+    componentDidMount() {
+        super.componentDidMount();
         // 每1000毫秒对showText状态做一次取反操作
         var i = 0;
 
         this.timer = setInterval(() => {
-            this.setState(()=>{
+            this.setState(() => {
                 return {showText: i++};
             });
         }, 1000);
@@ -103,24 +78,25 @@ class App extends Component<Props> {
 
 
     componentWillUnmount() {
+        super.componentWillUnmount()
         this.timer && clearInterval(this.timer);
     }
 
-    render() {
+    renderStatusBar() {
+        return (<StatusBar
+            animated={true} //指定状态栏的变化是否应以动画形式呈现。目前支持这几种样式：backgroundColor, barStyle和hidden
+            hidden={false}  //是否隐藏状态栏。
+            backgroundColor={'gray'} //状态栏的背景色
+            translucent={false}//指定状态栏是否透明。设置为true时，应用会在状态栏之下绘制（即所谓“沉浸式”——被状态栏遮住一部分）。常和带有半透明背景色的状态栏搭配使用。
+            barStyle={'light-content'} // enum('default', 'light-content', 'dark-content')
+        />)
+    }
 
+    renderComponent() {
         let display = this.state.showText;
         let displays = this.state.text ? "取消点击cancel" : "我被点击ok";
         return (
-
             <View style={styles.container}>
-                <StatusBar
-                    animated={true} //指定状态栏的变化是否应以动画形式呈现。目前支持这几种样式：backgroundColor, barStyle和hidden
-                    hidden={false}  //是否隐藏状态栏。
-                    backgroundColor={'gray'} //状态栏的背景色
-                    translucent={false}//指定状态栏是否透明。设置为true时，应用会在状态栏之下绘制（即所谓“沉浸式”——被状态栏遮住一部分）。常和带有半透明背景色的状态栏搭配使用。
-                    barStyle={'light-content'} // enum('default', 'light-content', 'dark-content')
-                >
-                </StatusBar>
 
                 <TouchableOpacity
                     // activeOpacity={0.5}
@@ -140,10 +116,9 @@ class App extends Component<Props> {
                 <Toast //自定义toast
                     ref="toast"
                     style={{backgroundColor: 'red'}}
-                    position='top'
+                    position='center'
                 />
-            </View>
-        );
+            </View>);
     }
 
     _onClickText() {
@@ -151,10 +126,7 @@ class App extends Component<Props> {
         // ToastExample.show("you click text");
         //   debugger
 
-        this.props.navigation.navigate("go2", {
-            skey: "15411", juh: "awm", callback: () => {
-            }
-        })
+        this.props.navigation.navigate("FlatList")
 
         this.setState(state => {
             return {text: !state.text};
@@ -189,6 +161,3 @@ const styles = StyleSheet.create({
         resizeMode: 'contain'
     }
 });
-export default connect(state => ({
-    routes: state.nav.routes
-}), dispatch => ({}))(App);
