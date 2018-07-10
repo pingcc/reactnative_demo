@@ -2,6 +2,7 @@ package com.demo;
 
 import android.app.Application;
 
+import com.demo.rn.OpenNativeReactPackage;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -22,7 +23,8 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
-          new MainReactPackage()
+          new MainReactPackage(),
+          new OpenNativeReactPackage()
       );
     }
 
@@ -32,6 +34,7 @@ public class MainApplication extends Application implements ReactApplication {
     }
   };
 
+
   @Override
   public ReactNativeHost getReactNativeHost() {
     return mReactNativeHost;
@@ -40,6 +43,7 @@ public class MainApplication extends Application implements ReactApplication {
   @Override
   public void onCreate() {
     super.onCreate();
-    SoLoader.init(this, /* native exopackage */ false);
+    /* native exopackage */
+    SoLoader.init(this, false);
   }
 }

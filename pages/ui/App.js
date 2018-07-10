@@ -16,6 +16,7 @@ import {
     ToastAndroid,
     Platform,
     BackHandler,
+    NativeModules,
 } from 'react-native';
 import * as UiUtils from "../tools/UiUtil";
 import Toast, {DURATION} from 'react-native-easy-toast'
@@ -31,7 +32,7 @@ const instructions = Platform.select({
 type Props = {};
 
 var currTime;
-
+var nativeModule = NativeModules.OpenNativeModule;
 export default class App extends BaseComponent {
 
 
@@ -122,7 +123,11 @@ export default class App extends BaseComponent {
     }
 
     _onClickText() {
-        UiUtils.showToast("you click text");
+        //跳转到原生界面
+        // debugger
+        // if(this.props.flag1)
+        nativeModule.openNativeVC("哈哈哈哈哈哈");
+       /* UiUtils.showToast("you click text");
         // ToastExample.show("you click text");
         //   debugger
 
@@ -130,7 +135,7 @@ export default class App extends BaseComponent {
 
         this.setState(state => {
             return {text: !state.text};
-        })
+        })*/
 
     }
 }

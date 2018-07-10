@@ -32,5 +32,11 @@ let SimpleApp = createStackNavigator({
     }
 })
 
+/**
+ * 如需跳转不同的界面，只需要传值过来，
+ * 在初始化界面中this.props.(value)来判断显示不同的界面
+ * 或者重置界面即可
+ */
+
 
 AppRegistry.registerComponent('demo', () => SimpleApp);
